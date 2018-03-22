@@ -1,0 +1,9 @@
+# Node files
+node_modules
+
+# Misc
+.ds_store
+.DS_Store
+
+# Config
+config/*
