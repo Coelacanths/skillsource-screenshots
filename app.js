@@ -7,15 +7,17 @@ const cors = require('cors');
 
 // Require or set configurations
 let cloudinarySettings = null;
-if (require('./config/cloudinary.js')) {
-  cloudinarySettings = require('./config/cloudinary.js');
-} else {
+
+if (process.env.CLOUD_NAME) {
   cloudinarySettings = {
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET,
   };
+} else {
+  cloudinarySettings = require('./config/cloudinary.js');
 }
+
 
 // Set constants
 const PORT = process.env.PORT || 4200;
@@ -47,6 +49,12 @@ app.get(`/api/screenshot/*`, (req, res) => {
     res.send(`Error`);
   })
 
+});
+
+// Bounce all other requests
+app.all(`*`, (req, res, next) => {
+  res.send(`Request type not supported.`);
+  next();
 });
 
 app.listen(PORT, () => {
