@@ -1,7 +1,6 @@
 // Require dependencies
 const express = require('express');
 const path = require('path');
-const puppeteer = require('puppeteer');
 const pssg = require('pssg');
 const cloudinary = require('cloudinary');
 const cors = require('cors');
