@@ -4,8 +4,9 @@ const path = require('path');
 const puppeteer = require('puppeteer');
 const pssg = require('pssg');
 const cloudinary = require('cloudinary');
+const cors = require('cors');
 
-// Require or set configurations 
+// Require or set configurations
 let cloudinarySettings = null;
 if (require('./config/cloudinary.js')) {
   cloudinarySettings = require('./config/cloudinary.js');
@@ -18,12 +19,14 @@ if (require('./config/cloudinary.js')) {
 }
 
 // Set constants
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4200;
 
 // Configure cloudinary
 cloudinary.config(cloudinarySettings);
 // Initialize express app
 const app = express();
+
+app.use(cors());
 
 // Logging middleware
 app.use(`*`, (req, res, next) => {
@@ -32,7 +35,7 @@ app.use(`*`, (req, res, next) => {
 });
 
 // ROUTE: Request a screenshot
-app.get(`/api/screenshots/*`, (req, res) => {
+app.get(`/api/screenshot/*`, (req, res) => {
   const url = req.params[0];
   const host = url.split('.')[1];
 
